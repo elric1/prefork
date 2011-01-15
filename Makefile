@@ -24,8 +24,5 @@ install:
 	install -c -m644 prefork.1	$(DESTDIR)/$(PREFIX)/man/man1/
 	install -c -m644 prefork.0	$(DESTDIR)/$(PREFIX)/man/cat1/
 
-prefork: prefork.o
-	cc -o $@ $>
-
 prefork.0: prefork.1
-	nroff -mandoc $> > $@
+	nroff -mandoc prefork.1 > $@
