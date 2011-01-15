@@ -1,0 +1,86 @@
+.\"
+.\" Copyright 2011  Morgan Stanley and Co. Incorporated
+.\"
+.\" Permission is hereby granted, free of charge, to any person obtaining
+.\" a copy of this software and associated documentation files (the
+.\" "Software"), to deal in the Software without restriction, including
+.\" without limitation the rights to use, copy, modify, merge, publish,
+.\" distribute, sublicense, and/or sell copies of the Software, and to
+.\" permit persons to whom the Software is furnished to do so, subject
+.\" to the following conditions:
+.\"
+.\" The above copyright notice and this permission notice shall be
+.\" included in all copies or substantial portions of the Software.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+.\" EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+.\" MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+.\" IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+.\" ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+.\" CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+.\" WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+.\"
+.Dd January 6, 2011
+.Os
+.Dt PREFORK 1
+.Sh NAME
+.Nm prefork
+.Nd utility to prefork inetd-style wait services
+.Sh SYNOPSIS
+.Nm
+.Op Fl N Ar max_kids
+.Op Fl n Ar min_kids
+.Op Fl r Ar rate_limit
+.Op Fl s Ar sample_time
+.Ar daemon
+.Op Ar args ...
+.Sh DESCRIPTION
+.Nm
+is a utility to prefork inetd-style wait services which itself runs
+as an inetd-style wait service.
+.Nm
+expects to be passed file descriptor zero (0) as a listening socket
+on which
+.Xr accept 2
+can be called and 
+will spawn children, passing them file descriptor zero (0) under the
+expectation that these children will service the incoming connexions.
+The children should then service connexions by calling
+.Xr accept 2
+on the socket.
+.Pp
+The options are as follows:
+.Bl -tag -width indentxxxxxxx
+.It Fl N Ar max_kids
+specifies the maximum number of children that
+.Nm
+will allow to concurrently exist.
+This value defaults to 10.
+.It Fl n Ar min_kids
+specifies the minimum number of children that
+.Nm
+will allow to concurrently exist.
+This value defaults to 0.
+.It Fl r Ar rate_limit
+specifies the minimum time between spawning children in addition to those
+specified by
+.Fl n Ar min_kids .
+The argument is an integral value interpreted as a number of microseconds.
+This value defaults to 100,000.
+.It Fl s Ar sample_time
+specifies the minimum number of microseconds after a pending connexion is
+detected by
+.Xr select 2
+before
+.Nm
+will test again for pending connexions.
+.Nm
+requires two selects in a row to be successful before it spawns a new
+daemon.
+This value defaults to 10,000.
+.El
+.Sh EXIT STATUS
+.Nm
+exits 0 on success and >0 if an error occurred.
+.Sh SEE ALSO
+.Xr inetd 8 .
