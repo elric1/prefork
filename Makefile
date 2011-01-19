@@ -21,8 +21,8 @@ clean:
 
 install:
 	install -c -m755 prefork	$(DESTDIR)/$(PREFIX)/sbin
-	install -c -m644 prefork.1	$(DESTDIR)/$(PREFIX)/man/man1/
-	install -c -m644 prefork.0	$(DESTDIR)/$(PREFIX)/man/cat1/
+	install -c -m644 prefork.8	$(DESTDIR)/$(PREFIX)/man/man8/
+	install -c -m644 prefork.0	$(DESTDIR)/$(PREFIX)/man/cat8/
 
-prefork.0: prefork.1
+prefork.0: prefork.8
 	nroff -mandoc prefork.1 > $@
