@@ -29,4 +29,4 @@ install:
 	install -c -m644 prefork.0	$(DESTDIR)/$(PREFIX)/man/cat8/
 
 prefork.0: prefork.8
-	$(NROFF) -mandoc $> > $@
+	$(NROFF) -mandoc prefork.8 > $@
