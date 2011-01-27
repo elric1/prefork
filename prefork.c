@@ -196,7 +196,7 @@ prefork_process_args(struct prefork_ctx *ctx, int argc,
 	argc -= optind;
 	argv += optind;
 
-	ctx->kid_prognam = *argv++;
+	ctx->kid_prognam = *argv;
 	ctx->kid_args = argv;
 
 	/* XXXrcd: some more sanity checking is required... */
