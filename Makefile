@@ -22,9 +22,9 @@ clean:
 	rm -f prefork prefork.o prefork.0
 
 install:
-	mkdir -p			$(DESTDIR)/$(PREFIX)/libexec
-	mkdir -p			$(DESTDIR)/$(PREFIX)/man/man8
-	mkdir -p			$(DESTDIR)/$(PREFIX)/man/cat8
+	umask 022 && mkdir -p		$(DESTDIR)/$(PREFIX)/libexec
+	umask 022 && mkdir -p		$(DESTDIR)/$(PREFIX)/man/man8
+	umask 022 && mkdir -p		$(DESTDIR)/$(PREFIX)/man/cat8
 	install -c -m755 prefork	$(DESTDIR)/$(PREFIX)/libexec
 	install -c -m644 prefork.8	$(DESTDIR)/$(PREFIX)/man/man8/
 	install -c -m644 prefork.0	$(DESTDIR)/$(PREFIX)/man/cat8/
