@@ -430,8 +430,11 @@ main_loop(struct prefork_ctx *ctx)
 		}
 
 		if (ctx->num_kids >= ctx->max_kids) {
-			waitpid(-1, &status, 0);
-			ctx->num_kids--;
+			if (waitpid(-1, &status, 0) != -1)
+				ctx->num_kids--;
+			else
+				pf_log(ctx, LOG_ERR, "blocking waitpid(2): %s",
+				    strerror(errno));
 		}
 
 		if (ctx->num_kids < ctx->min_kids) {
