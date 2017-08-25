@@ -1,3 +1,10 @@
+prefork (0.3) unstable; urgency=low
+
+  * Set umask 022 when creating directories.
+  * Man page updates
+
+ -- Roland C. Dowdeswell <roland.dowdeswell@twosigma.com>  Thu, 24 Aug 2017 15:56:25 +0100
+
 prefork (0.2) unstable; urgency=low
 
   * Set umask 022 when creating directories.
