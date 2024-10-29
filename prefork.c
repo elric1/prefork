@@ -142,11 +142,11 @@ sighndler(int sig)
 
 
 /*
- * On linux, you have to prepend + to optstring to cause sane argument
+ * On linux, you have to prepend + to optstring to cause POSIX argument
  * processing to occur.  We hardcode this here rather than rely on the
  * user to set POSIXLY_CORRECT because for programs with a syntax that
  * accepts another program which has arguments, the GNU convention is
- * particularly stupid.
+ * particularly difficult to use.
  */
 #ifdef linux
 #define POS "+"
