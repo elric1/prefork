@@ -529,9 +529,12 @@ swizzle_fds(struct prefork_ctx *ctx)
         if (dup2(nullfd, STDIN_FILENO) < 0) {
                 pf_log(ctx, LOG_ERR, "failed to nullify STDOUT_FILENO: %s",
 		    strerror(errno));
+                close(fd);
+                close(nullfd);
                 return -1;
         }
 
+        close(nullfd);
 	return fd;
 }
 
