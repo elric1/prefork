@@ -231,6 +231,9 @@ prefork_setup(struct prefork_ctx *ctx)
 	if (sigaction(SIGTERM, &sa, NULL) < 0)
 		fatal(ctx, "could not reset SIGTERM handler");
 
+	if (setpgid(0, getpid()) == -1 && errno != EPERM)
+		fatal(ctx, "failed to set process group: %s", strerror(errno));
+
 	return 0;
 }
 
