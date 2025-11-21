@@ -199,6 +199,9 @@ prefork_process_args(struct prefork_ctx *ctx, int argc,
 	ctx->kid_prognam = *argv;
 	ctx->kid_args = argv;
 
+	if (!ctx->kid_prognam)
+		prefork_usage(ctx, ctx->progname);
+
 	/* XXXrcd: some more sanity checking is required... */
 
 	if (ctx->max_kids < ctx->min_kids) {
